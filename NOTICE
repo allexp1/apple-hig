@@ -1,0 +1,35 @@
+apple-hig
+=========
+
+This project is an INDEPENDENT, UNAFFILIATED design reference. It is not
+produced, endorsed, sponsored, or approved by Apple Inc.
+
+Trademarks
+----------
+Apple, the Apple logo, iOS, iPadOS, macOS, watchOS, tvOS, visionOS,
+SF Symbols, San Francisco, Liquid Glass, and other Apple product and feature
+names are trademarks of Apple Inc., registered in the U.S. and other countries.
+These names are used here only for identification and descriptive reference.
+No claim to any Apple trademark is made.
+
+Source material
+---------------
+The guidance in this project is an original synthesis and paraphrase of
+Apple's publicly available Human Interface Guidelines and design resources.
+No Apple text is reproduced verbatim. Apple's published Human Interface
+Guidelines remain the authoritative and evolving source of truth:
+
+    https://developer.apple.com/design/human-interface-guidelines
+
+Interpretation
+--------------
+The "philosophy" material draws on the broader design tradition Apple openly
+references (the Bauhaus, Dieter Rams, Don Norman) and is interpretation, not
+text published by Apple. The "psychology" material maps well-established,
+independently published cognitive principles to the guidance they help explain.
+These connections are the authors' own and are offered to make the guidance
+understandable and generative, not as statements by Apple.
+
+The MIT license in LICENSE applies to the original written content and code in
+this repository. It does not grant any rights in Apple's trademarks or in
+Apple's own copyrighted Human Interface Guidelines.
