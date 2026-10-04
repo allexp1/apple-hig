@@ -7,7 +7,8 @@
 # Checks: the SKILL.md frontmatter (name, version, description length), that
 # the version matches package.json and has a CHANGELOG.md entry, and that every
 # reference file SKILL.md points at exists.
-# Rebuilds: apple-hig/.living/ORIGINAL.sha256 and dist/apple-hig.skill.
+# Rebuilds: apple-hig/.living/ORIGINAL.sha256 and dist/apple-hig.skill, but only
+# when they are out of date, so a second run leaves the working tree unchanged.
 
 set -euo pipefail
 
@@ -28,6 +29,18 @@ sha256_of() {
   else
     sha256sum "$1" | awk '{print $1}'
   fi
+}
+
+# True when the package exists and unpacks to exactly the skill folder.
+dist_is_current() {
+  [[ -f "$DIST" ]] || return 1
+  local tmp rc=0
+  tmp="$(mktemp -d)"
+  unzip -q "$DIST" -d "$tmp" 2>/dev/null \
+    && diff -r -x .DS_Store "$tmp/apple-hig" apple-hig >/dev/null 2>&1 \
+    || rc=1
+  rm -rf "$tmp"
+  return $rc
 }
 
 [[ -f "$SKILL_MD" ]] || fail "$SKILL_MD not found"
@@ -60,18 +73,19 @@ done
 if (( CHECK_ONLY )); then
   [[ "$(cat "$HASH_FILE" 2>/dev/null)" == "$(sha256_of "$SKILL_MD")" ]] \
     || fail "$HASH_FILE is out of date; run 'bash scripts/build.sh'"
-  [[ -f "$DIST" ]] || fail "$DIST is missing; run 'bash scripts/build.sh'"
-  unzip -p "$DIST" apple-hig/SKILL.md | cmp -s - "$SKILL_MD" \
-    || fail "$DIST is out of date; run 'bash scripts/build.sh'"
+  dist_is_current || fail "$DIST is missing or out of date; run 'bash scripts/build.sh'"
   echo "apple-hig $SKILL_VERSION: checks passed"
   exit 0
 fi
 
-sha256_of "$SKILL_MD" > "$HASH_FILE"
+HASH="$(sha256_of "$SKILL_MD")"
+[[ "$(cat "$HASH_FILE" 2>/dev/null)" == "$HASH" ]] || echo "$HASH" > "$HASH_FILE"
 
-mkdir -p dist
-rm -f "$DIST"
-zip -q -r -X "$DIST" apple-hig -x '*.DS_Store' '*/__pycache__/*'
+if ! dist_is_current; then
+  mkdir -p dist
+  rm -f "$DIST"
+  zip -q -r -X "$DIST" apple-hig -x '*.DS_Store' '*/__pycache__/*'
+fi
 
 echo "apple-hig $SKILL_VERSION"
 echo "  description: $DESC_LEN / 1024 characters"
