@@ -1,0 +1,43 @@
+{
+  "name": "apple-hig",
+  "version": "2.0.0",
+  "description": "An agent skill for Claude Code: Apple's Human Interface Guidelines with the design philosophy and cognitive psychology beneath them. Current to iOS 27, Liquid Glass, and iPhone Duo.",
+  "bin": {
+    "apple-hig": "bin/install.js"
+  },
+  "type": "commonjs",
+  "engines": {
+    "node": ">=16.7.0"
+  },
+  "files": [
+    "bin/",
+    "apple-hig/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "agent-skill",
+    "skill",
+    "apple",
+    "hig",
+    "human-interface-guidelines",
+    "ios",
+    "liquid-glass",
+    "iphone-duo",
+    "swiftui",
+    "design"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allexp1/apple-hig.git"
+  },
+  "homepage": "https://github.com/allexp1/apple-hig#readme",
+  "bugs": {
+    "url": "https://github.com/allexp1/apple-hig/issues"
+  },
+  "license": "MIT"
+}

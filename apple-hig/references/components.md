@@ -20,30 +20,45 @@ How to choose and use Apple's standard UI components. **Rule of thumb: use the s
 ### Tab bar
 
 - **For navigation, not actions.** A tab bar switches between the app's **top-level, peer destinations**. Never put action buttons (compose, share) in it — those belong in a toolbar.
-- **≤5 tabs on iPhone.** More than that, use a "More" tab or rethink the architecture. iPad/Mac can show more via a sidebar.
-- Use **filled** SF Symbol variants in the tab bar; the same symbols appear as **outline** in a sidebar.
+- **As few tabs as the app needs; five or fewer by default on iPhone.** Fewer tabs are easier to navigate.
+- **Don't let tabs overflow.** When tabs don't fit, the system turns the trailing one into a **More** tab, and the HIG now says to avoid that: hidden tabs are harder to reach and notice. If you have more sections than fit, rethink the architecture or use a tab bar that adapts to a sidebar (below). Don't plan for a More tab.
+- **Keep it visible and stable.** Don't hide the tab bar as people navigate (a modal covering it is the exception), and don't disable or remove a tab when its content is unavailable: show an empty state that explains why.
+- **Labels are single words**; use **filled** SF Symbol variants in the tab bar (the same symbols appear as **outline** in a sidebar).
 - A tab persists its own navigation state; re-tapping the current tab pops to its root / scrolls to top.
-- Use **badges** for unobtrusive "new info" counts.
-- Under Liquid Glass the tab bar is a floating glass surface; on iPhone it can minimize as you scroll to give content more room.
+- **Badges are for critical information only**, so they keep their meaning.
+- **Don't color tab labels like the content behind them.** If the content layer is bright and colorful, keep the bar monochrome or choose an accent that clearly differs.
+- **iPhone:** the tab bar floats at the bottom on Liquid Glass. With an attached accessory (like Music's MiniPlayer) it can **minimize on scroll** (`TabBarMinimizeBehavior`). A **dedicated search tab** sits at the trailing end (see Search).
+- **iPad:** the tab bar sits **near the top**. Choose a fixed bar (`tabBarOnly`) or one with a button that converts it to a sidebar (`sidebarAdaptable`). Let people customize which tabs appear, with a default of five or fewer.
+- **iPhone Duo:** on the closed outer display, and on the inner display in landscape, the tab bar becomes a **vertical tab bar on the side**, automatically. The inner display in portrait keeps the standard horizontal bar. See `references/iphone-duo.md`.
 - **macOS has no tab bar** — use a sidebar or segmented control / tab view instead.
 
-### Navigation bar
+### Navigation bar (now a top toolbar)
 
-- Sits at the top of a screen in a **hierarchical (drill-down)** flow. Holds the **title**, a **back** affordance (leading), and a few screen-level controls (trailing) — optionally **search** and an edit/management menu.
-- Keep the title short; use the **large-title** style for top-level screens that collapses to inline on scroll.
-- Don't overload it; move secondary actions into a toolbar or an overflow (•••) menu.
+Since 2025 the HIG folds navigation bar guidance into **Toolbars** and treats "navigation bar" as an iOS name for a toolbar used for navigation. The behavior is the same; the vocabulary changed.
+
+- Sits at the top of a screen in a **hierarchical (drill-down)** flow. Holds the **title**, a **back** affordance (leading), and a few screen-level controls (trailing).
+- **Use the standard Back and Close buttons** with their standard symbols. Don't label them with the words "Back" or "Close".
+- Keep the title short (**under about 15 characters**) and never use the app name as a title. Use the **large-title** style on top-level screens; it collapses to inline on scroll.
+- Don't overload it; see Toolbar in §2 for grouping, primary action, and overflow rules.
 
 ### Sidebar
 
-- The primary navigation for **iPad and macOS** when there are many top-level destinations. Lets people jump directly between sections (flatter and faster than a tab bar) and supports **groups, collapsing, reordering, and hide/show**.
-- On iPad, **prefer a sidebar over a tab bar** when the app is content-rich and benefits from persistent navigation; it can collapse for more canvas.
+- The primary navigation on **macOS**, and on **iPad** when there are more top-level areas than a tab bar holds. Lets people jump directly between sections and supports **groups, collapsing, reordering, and hide/show**.
+- **On iPhone and iPad, start with a tab bar.** It leaves more room for content. If you need more areas than fit, use the adaptable style (`sidebarAdaptable`): a tab bar that converts to a sidebar, and back, with one button. You rarely have to choose between the two anymore.
+- **Show no more than two levels of hierarchy.** Deeper than that, use a split view with a content list between the sidebar and the detail.
+- **Extend rich content beneath the sidebar.** It floats on the Liquid Glass layer; let content scroll under it or apply the background extension effect.
+- **Icon colors need a reason.** Sidebar icons take the app accent color by default, and on macOS they follow the system accent color people choose. Use a fixed color only where it carries meaning (Mail's yellow VIP star) and sparingly.
 - Use outline SF Symbols; indicate the current selection clearly.
 
 ### Search
 
-- Use the standard **search field / search bar**; place it in the navigation bar or as a dedicated tab/field per platform convention.
-- Show **results as you type** when feasible; offer **scopes**, **suggestions/recents**, and a clear empty-results state with guidance.
-- Don't reinvent the field — the system one brings the clear button, dictation, tokens, and accessibility.
+- Use the standard **search field**. Don't reinvent it: the system one brings the clear button, dictation, tokens, and accessibility.
+- Show **results as you type** when feasible; offer **scope bars, tokens, suggestions/recents**, most relevant results first, and a clear empty-results state. Use placeholder text to say what can be searched. Default to the broader scope and let people narrow it.
+- **iPhone has three entry points.** Pick one by how central search is:
+  - **A search tab** at the trailing end of the tab bar. *Standard tab*: opens a search landing page with suggestions and categories; use it when browsing and discovery matter (Apple TV, Music). *Button appearance*: focuses the field and raises the keyboard at once, then returns people to the tab they came from; use it when search should resolve quickly.
+  - **In a toolbar.** **Prefer the bottom when there is room** (Settings, Mail, Notes), where it is easy to reach. Put it at the top only when the bottom of the screen has content that must stay clear, or there is no bottom toolbar.
+  - **Inline with content**, above the list it filters, when the position shows what the search applies to (search within one view, or an app with more than one search field).
+- **iPad and Mac:** the trailing side of the toolbar for most apps; the top of the sidebar when filtering the sidebar itself; a dedicated sidebar or tab item when search is a discovery area. Keep the two platforms consistent, and make sure search stays reachable when the window shrinks to compact width.
 
 ### Page controls
 
@@ -64,7 +79,8 @@ How to choose and use Apple's standard UI components. **Rule of thumb: use the s
 
 - **Pull-down menu** — a list of actions or options triggered by a button (often •••). Group related items; use separators; put destructive items last and styled destructive.
 - **Pop-up menu** — lets the user choose one value from a set; shows the current selection. Good for compact single-choice on macOS/iPadOS.
-- Use **submenus** sparingly (one level); add **SF Symbols** to items for scanning; mark **state** with a checkmark.
+- Use **submenus** sparingly (one level); mark **state** with a checkmark.
+- **Menu item icons: few, and each one earning its place** (guidance tightened June 2026). Use an icon for the most common actions and key features, file-system locations, devices, visual concepts (rotate, flip), and user content such as folders. If no icon clearly fits, leave it out. Use the **standard icons** for standard actions (Share, Print, Search). Within one group of items, give icons to **all or none**.
 
 ### Context menus
 
@@ -74,7 +90,12 @@ How to choose and use Apple's standard UI components. **Rule of thumb: use the s
 
 - Holds the **actions relevant to the current screen/content** (not navigation between sections).
 - **iPhone:** typically a **bottom** toolbar. **iPad/Mac:** top and/or bottom. On iPadOS the navigation bar doubles as the toolbar surface (leading back/sidebar + title, trailing actions).
-- Under Liquid Glass, toolbar items can be **grouped**; placement (`ToolbarItemPlacement`) decides both position and prominence. Keep to a few high-value actions; overflow the rest into a ••• menu.
+- Under Liquid Glass, toolbar items are **grouped** into glass sections; placement (`ToolbarItemPlacement`) decides both position and prominence. Three homes: **leading** (back, sidebar toggle, then the title), **center** (common controls; customizable on iPad/Mac), **trailing** (important items, the More menu, the primary action).
+- **Group by function and frequency; aim for three groups at most.** Give navigation controls and critical actions (Done, Close, Save) their own visually distinct section.
+- **One primary action, `.prominent`, on the trailing side** (Done, Submit). It gets tint and separation so the bar has one focal point.
+- **Prefer symbols without borders** for items; the glass section is already the container. Use text only where no symbol reads clearly (Edit). **Keep text-labeled items apart** from symbol items and from each other with fixed space, or they read as one control.
+- **Overflow:** on iPadOS and macOS the system adds the overflow menu when items no longer fit; don't add your own, and don't design a layout that overflows by default. Decide which items move there first. On iPhone, a More (•••) menu holds the secondary actions.
+- **iPhone Duo:** on the closed outer display, and on the inner display in landscape, top and bottom toolbars become **vertical bars on the side** (the inner display in portrait keeps horizontal bars). Give every item a title and a symbol, set visibility priority, and let the system overflow menu take the rest, because less fits on the side. See `references/iphone-duo.md` §4.
 
 ### Activity views (Share)
 
@@ -147,6 +168,7 @@ Modality interrupts the normal flow to focus on a self-contained task or to surf
 - **Collection views / grids** — for 2-D arrangements (photos, tiles). Use compositional layouts that adapt to width and Dynamic Type.
 - **Scroll views** — content scrolls; chrome stays. Respect safe areas and scroll-edge effects.
 - **Split views** — multi-column layouts (sidebar → content → detail) on iPad/Mac that collapse responsively.
+- **Arrangement views (iOS 27.1)** — a container, new with iPhone Duo, for a primary and a secondary view. **Split** divides the space between them (side by side when wider than tall, stacked when taller than wide) and adjusts around the fold; **overlay** layers one over the other and moves them to opposite sides of the fold when the device is partially folded. Navigation stays outside it. See `references/iphone-duo.md` §6.
 - **Charts** — use **Swift Charts**; label axes, support VoiceOver (audio graphs), and don't rely on color alone to distinguish series (see `references/patterns.md` §Charting).
 - **Boxes / group boxes / disclosure groups (macOS)** — to visually group related content/controls.
 
@@ -161,14 +183,19 @@ Standard surfaces that live partly outside your app — use the official APIs so
 - **Live Activities (iOS)** — real-time, glanceable status on the Lock Screen and in the Dynamic Island (e.g., a delivery, a game score). Keep it to the essential live data.
 - **Complications (watchOS)** — tiny, glanceable data on the watch face.
 - **App Shortcuts / Controls / Action button** — expose key actions to Spotlight, Shortcuts, Control Center, and the Action button via App Intents.
+- **Siri AI (27 generation)** — Siri reaches your app through the same App Intents: actions, entities, and (new) **app schemas** that map them to domains Siri already understands. Annotate on-screen content so people can refer to "this". Design the response for both eyes and ears, keep dialogue succinct, don't advertise. See `references/patterns.md` §Generative AI, Siri & snippets.
+- **Snippets** — the compact view Siri, Spotlight, or Shortcuts shows for an app intent. Two types: **confirmation** (Cancel + a primary button you label) and **result** (Done). Keep the custom view **no taller than 400 pt**, label the primary button with the outcome ("Order", not "OK"), and let the view carry the meaning rather than the spoken dialogue. iOS, iPadOS, macOS only.
 - **Status bars, the Dock, Control Center, Home Screen quick actions** — don't fight or fake them; integrate through the provided APIs.
 
 ---
 
 ## 8. Choosing the right one
 
-- **Switch between top-level sections?** → Tab bar (iPhone) / sidebar (iPad, Mac).
-- **Drill into detail?** → Navigation stack + navigation bar.
+- **Switch between top-level sections?** → Tab bar (iPhone, and first choice on iPad; adaptable to a sidebar) / sidebar (Mac, complex iPad apps).
+- **Drill into detail?** → Navigation stack + top toolbar (navigation bar).
+- **Search?** → Search tab (central to the app) / bottom toolbar (important, room available) / inline (scoped to one list).
+- **Two related views that should arrange themselves around a fold (iPhone Duo)?** → Arrangement view. **List + detail?** → Split view, as on iPad.
+- **An action Siri or Shortcuts should perform?** → App Intent, with a snippet for the result.
 - **Run a self-contained subtask?** → Sheet (with detents); full-screen cover only if it needs the whole screen.
 - **Offer a list of actions from a control?** → Pull-down menu or context menu.
 - **Force a critical decision / show an error?** → Alert (rare) or confirmation dialog/action sheet.
@@ -179,4 +206,11 @@ Standard surfaces that live partly outside your app — use the official APIs so
 ## Reference
 
 - All components: https://developer.apple.com/design/human-interface-guidelines/components/all-components
+- Tab bars: https://developer.apple.com/design/human-interface-guidelines/tab-bars
+- Toolbars: https://developer.apple.com/design/human-interface-guidelines/toolbars
+- Sidebars: https://developer.apple.com/design/human-interface-guidelines/sidebars
+- Search fields: https://developer.apple.com/design/human-interface-guidelines/search-fields
+- Menus: https://developer.apple.com/design/human-interface-guidelines/menus
+- Snippets: https://developer.apple.com/design/human-interface-guidelines/snippets
+- WWDC26 session 292 — Design intuitive search experiences: https://developer.apple.com/videos/play/wwdc2026/292/
 - HIG home: https://developer.apple.com/design/human-interface-guidelines

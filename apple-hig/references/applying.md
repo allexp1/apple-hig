@@ -7,7 +7,7 @@ This file turns the *why* into a *method*. It's for when you're designing or rev
 1. The stance: derive, don't copy
 2. A first-principles design process (7 steps)
 3. Translating the pillars across modalities
-4. Worked derivations (screen, voice, kiosk, AI agent)
+4. Worked derivations (screen, voice, kiosk, AI agent, folding phone)
 5. Reviewing through the philosophy + psychology lens
 6. Anti-patterns this method kills
 
@@ -45,7 +45,7 @@ Remove everything not serving the primary goal. For each remaining element ask: 
 Design the first run, the peak ("it worked!"), the failure and its recovery, the empty state, and the ending/offboarding — not only the happy middle. (Psychology: peak-end rule.) Make the defaults ethical (they're where your values live) and request any trust in context with a stated reason.
 
 **Step 7 — Verify at the extremes.**
-Check against the three pillars, accessibility, and honesty — at the *edges*, not the demo case: largest text, lowest vision, worst lighting, slowest network, the brand-new user, the user with one free hand. If it holds at the extremes, the middle takes care of itself.
+Check against the principles (Apple's eight from 2026, or the three classic pillars; `references/philosophy.md` §12 maps one to the other), accessibility, and honesty — at the *edges*, not the demo case: largest text, lowest vision, worst lighting, slowest network, the brand-new user, the user with one free hand, the smallest and largest space the interface can occupy. If it holds at the extremes, the middle takes care of itself.
 
 ## 3. Translating the pillars across modalities
 
@@ -127,6 +127,17 @@ Short chains showing principle → decision. Note how the *roots* are identical 
 - *Error theory:* prefer reversible actions and previews over irreversible ones; confirm only the genuinely destructive; when wrong, say what happened and offer the next step.
 - *Trust:* act within stated scope, ask for elevated access in context with a reason, and never take surprising actions — trust is the entire substrate of an agent relationship.
 
+### E. A folding phone: one app in two spaces (iPhone Duo)
+The HIG now covers this (`references/iphone-duo.md`), but the derivation shows why its rules are what they are, and it carries to any device that changes shape.
+- *Context* (Step 1): closed, the person is one-handed, moving, glancing. Open, they have two hands and time, and the device is held by its sides. Same person, same task, seconds apart.
+- *Primary goal* (Step 2): continue what they were doing. Opening the device is not a new task, so it must not feel like a new app.
+- *Interaction model* (Step 3): the same model in both spaces (Jakob's Law, habituation). What changes is how much of the hierarchy is visible, not what the app can do.
+- *Subtract* (Step 4): don't design a layout per pose. Two layouts (compact, regular) cover every pose; the system handles the rest.
+- *Cognitive levers* (Step 5): on the short, wide outer display the controls go to the side edge, inside the thumb's arc, and stay there when the device opens in landscape (Fitts, habituation). Related panes sit either side of the fold, so the hardware's division matches the content's grouping (Gestalt: common region). Nothing interactive on the fold itself (error prevention).
+- *The arc* (Step 6): the transition is the designed moment. Selection, scroll position, text being typed, and playback all survive opening and closing.
+- *Extremes* (Step 7): half width in Split View, largest text, a right-to-left language, partially folded.
+- *What the derivation rules out:* a "tablet mode" with different features, device checks instead of size classes, and a centered phone layout floating in a wide space.
+
 ## 5. Reviewing through the philosophy + psychology lens
 
 The component checklist in `SKILL.md` catches mechanical violations. This lens catches *reasoning* failures — use it for a deeper critique:
@@ -141,6 +152,9 @@ The component checklist in `SKILL.md` catches mechanical violations. This lens c
 - **Memory tax.** Does the user ever have to remember something the interface could show? (Recognition over recall, Miller.)
 - **Attention ethics.** Does anything interrupt or demand attention for the product's benefit rather than the user's? (Attention/flow.)
 - **The extremes.** Does it hold at largest text / lowest vision / worst conditions / brand-new user? (Accessibility as a property of good design.)
+- **The space test.** Does it hold when the space changes under it (rotation, a resized window, a device that opens)? Is anything lost in the change? (Flexibility: keep the person's place.)
+- **Whose choice?** Where the system or an AI feature decides for the person, can they see what it did, change it, and undo it? (Agency, Responsibility.)
+- **The eight-principle pass.** Name which of Purpose, Agency, Responsibility, Familiarity, Flexibility, Simplicity, Craft, and Delight the design serves weakest, and fix that one first. Apple presents them as tools for weighing trade-offs, not a scorecard.
 
 ## 6. Anti-patterns this method kills
 
@@ -152,11 +166,14 @@ The component checklist in `SKILL.md` catches mechanical violations. This lens c
 - **Dark patterns and false confidence** — short-term metric, long-term trust collapse (honesty).
 - **Designing only the happy path** — the failure, empty, and end states are where memory forms (peak-end).
 - **Pushing the system's complexity onto the user** via endless settings and required choices instead of good defaults (subtraction, decision fatigue).
+- **Designing for a device instead of a space** — model checks, fixed widths, a layout per orientation. It breaks on the next device and in every resized window (flexibility).
+- **Delight as decoration** — animation, sound, or personality added on top of a flow that doesn't work yet. Apple's 2026 principles make the same point: decoration is not delight.
 
 ## Reference
 
 - `references/philosophy.md` — the values being applied.
 - `references/psychology.md` — the cognitive laws cited above.
+- `references/iphone-duo.md` — Apple's own guidance for the folding-phone case derived in §4E.
 - Don Norman, *The Design of Everyday Things*: https://www.nngroup.com/books/design-everyday-things-revised/
 - Jon Yablonski, *Laws of UX*: https://lawsofux.com/
 - Apple HIG (the canonical instance for Apple platforms): https://developer.apple.com/design/human-interface-guidelines

@@ -2,7 +2,7 @@
 
 The HIG's rules are surface expressions of a worldview about what design *is* and whom it serves. Learn the worldview and you can derive the rules — and extend them to surfaces Apple never wrote guidelines for. This file is the *why* beneath the *what*. For the cognitive science that explains why these choices work on real minds, see `references/psychology.md`; to put both to work on a new interface, see `references/applying.md`.
 
-> A note on sourcing: the three pillars (clarity, deference, depth) are Apple's own framing. The deeper lineage below — Bauhaus, Dieter Rams, Don Norman — is the intellectual substrate Apple openly draws on (Jony Ive has repeatedly named Rams as a touchstone), not text Apple publishes in the HIG. It is interpretation, presented to make the rules *generative* rather than memorized.
+> A note on sourcing: Apple has stated its design values twice. The three pillars (clarity, deference, depth) are Apple's framing from the iOS 7 era and still describe how an Apple *interface* should behave. In June 2026 Apple reintroduced a **Design principles** page in the HIG with eight principles (purpose, agency, responsibility, familiarity, flexibility, simplicity, craft, delight) that describe how a product should treat the *person*; §12 covers them in Apple's own words. The deeper lineage below — Bauhaus, Dieter Rams, Don Norman — is the intellectual substrate Apple openly draws on (Jony Ive has repeatedly named Rams as a touchstone), not text Apple publishes in the HIG. It is interpretation, presented to make the rules *generative* rather than memorized.
 
 ## Table of contents
 
@@ -17,6 +17,8 @@ The HIG's rules are surface expressions of a worldview about what design *is* an
 9. Humanity: technology and liberal arts
 10. How the three pillars descend from all this
 11. Liquid Glass as philosophy made literal
+12. Apple's eight design principles (2026)
+13. iPhone Duo: flexibility made physical
 
 ## 1. The one sentence: design is how it works
 
@@ -105,17 +107,76 @@ And the two practical themes:
 
 When two HIG rules seem to conflict, resolve it by returning to the philosophy: which choice is more honest, defers more to the user's goal, and removes more of what isn't essential?
 
+The pillars describe the interface. Since June 2026 the HIG also names eight principles that describe the product's relationship with the person; §12 shows how the two sets fit together.
+
 ## 11. Liquid Glass as philosophy made literal
 
 Liquid Glass (WWDC 2025; iOS 26 / macOS Tahoe 26 and the rest of the 26 series) is not a fashion change — it's the philosophy taken to a logical extreme. **Deference becomes literal translucency:** the control layer is made of a material that refracts and reflects the user's *own content* showing through from beneath, so the chrome quite literally gets out of the content's way while remaining reachable. **Coherence becomes optical:** controls share one continuous material and bend the same light. **Craft becomes physics:** the elastic, liquid response to touch and motion is detail in service of feeling alive and humane.
 
 The risk it introduces is also a philosophy lesson: over-applying glass (glassing content, stacking it, decorating with it) violates *deference* and *subtraction* — the material starts talking about itself instead of serving the content. The fix is always the same return to first principles: glass belongs to the layer that floats above and serves the content, and nowhere else. Mechanics and APIs are in `references/liquid-glass.md`.
 
+The second year of Liquid Glass (the 27 generation, September 2026) shows the philosophy correcting itself in public. Apple made refraction more uniform and raised contrast, which is *clarity* winning over spectacle. It added a Settings slider that lets each person set the material anywhere between nearly clear and fully tinted, which is *agency*: the look of the system is now partly the user's decision, and a design has to stay legible across that whole range rather than at the one setting the designer prefers. And it removed the opt-out: apps built with the 27 SDK can no longer ask for the old appearance, which is *coherence*. One material, everywhere, tuned by the person holding the device.
+
+## 12. Apple's eight design principles (2026)
+
+On June 8, 2026 Apple reintroduced a **Design principles** page at the front of the HIG (with the WWDC26 session "Principles of great design"). Apple's preamble sets the tone: the principles come from studying how people actually think, feel, and act, and they are offered as aids for weighing competing priorities rather than a formula with one correct application.
+
+Each one is listed with its core idea, the points Apple makes under it, and where it sits in the lineage above. The idea and the points are paraphrased; Apple's own wording is on the Design principles page (link in `SKILL.md`).
+
+| Principle | The idea | What Apple asks for | Where it comes from |
+|---|---|---|---|
+| **Purpose** | Give the product a real reason to exist. | Deliver real value. Stay focused on it. Keep looking for a better route to the solution. | §1 design is how it works; Rams' "useful" |
+| **Agency** | People stay in charge of how they work. | Don't obstruct. Leave room to explore. Make mistakes recoverable. | §4 deference; error theory (`references/psychology.md` §D) |
+| **Responsibility** | Put the person's interests first. | Be open about what the product does and why. Protect people's information. | §5 honesty; §8 defaults as ethics |
+| **Familiarity** | Start from what people already understand. | Reuse known concepts. Keep look and behavior consistent. Respond clearly to every action. | Consistency; Jakob's Law |
+| **Flexibility** | Fit many situations, abilities, and devices. | Include everyone. Keep people's place as things adapt. Support each input method. Treat each platform as its own design problem. | §8 design for everyone; §6 coherence |
+| **Simplicity** | Say and show things plainly. | Only what is needed. Few words. A clear order of importance. | §3 subtraction; the clarity pillar |
+| **Craft** | Sweat the details. | Quality shapes the first impression. Try, test, refine. Keep the work current after release. | §7 craft |
+| **Delight** | Give it warmth. | Decide what people should feel. Design a few defining moments. Don't confuse decoration with delight. Judge the whole experience. | §9 humanity; peak-end rule |
+
+Four ideas from the page carry most of its weight:
+
+- **Simple does not mean minimal.** The goal is a focused, useful product in which the important things stay within reach and the rest recedes. This is §3's distinction between simple and simplistic, now stated by Apple.
+- **Delight is not decoration.** Apple describes it as what accumulates from all the care put into a product. It is the result of the other seven, not an extra layer.
+- **Release is not the end of the work.** Craft now includes keeping the interface current with the platform. An app still dressed for iOS 18 is a craft failure even if it was excellent when it shipped.
+- **Don't obstruct the person.** Deference, restated as a duty to the person's agency rather than as a visual style.
+
+### What changed in the framing
+
+The pillars describe an *interface*: is it clear, does it defer, does it have depth? The eight principles describe a *relationship*: does the product have a purpose, does it leave the person in charge, does it act in their interest? Three things follow.
+
+- **Agency and responsibility are now first-class.** They used to be implied by "honesty." In a year when Siri AI and generative features act on people's behalf, Apple names them outright, and the Generative AI guidance repeats them: the person stays in charge, generated results are easy to adjust or undo, and the product says clearly where AI is used.
+- **Depth is no longer a headline.** It has become a property of the material. Liquid Glass carries hierarchy and a sense of place by construction, so the principle level is free to talk about people instead of pixels.
+- **Flexibility is a principle, not a chore.** Keeping a person's place as things adapt, and treating each platform as its own design problem, turn adaptive layout from an engineering task into a value. iPhone Duo (§13) is the hardware that makes it unavoidable.
+
+### How to use both sets
+
+- Use the **eight principles** to decide *what to build and whether it treats the person well*: is there a clear purpose, can the person steer and undo, is it honest about data and about AI, does it survive a change of device, input, or ability?
+- Use the **three pillars** to decide *how the screen behaves*: clarity, deference, depth, with consistency and hierarchy.
+- Use `references/psychology.md` to explain *why* either set works on a real mind.
+
+When principles pull against each other (delight against simplicity, flexibility against familiarity), Apple's instruction is to weigh them, not rank them. The tie-breaker stays the same as in §10: choose what is more honest, leaves the person more in control, and removes more of what isn't essential.
+
+**Consequence for you:** run a design past the eight principles before polishing it against the pillars. A screen can be clear, deferential, and deep and still fail on purpose, agency, or responsibility, and those are the failures people don't forgive.
+
+## 13. iPhone Duo: flexibility made physical
+
+The folding iPhone (September 2026) is to *flexibility* what Liquid Glass is to *deference*: the principle turned into an object. The same app is shown on a small wide display and a large squarish one, and moves between them every time the person opens their hand.
+
+Apple's answer is philosophical before it is technical. **Don't design for the device; design for the space.** Two size classes instead of a layout per pose. Nothing tied to a fixed width or a named screen. The existing layout expands; it is not replaced. Apple even removed the per-device dimension tables from the HIG's Layout page in the same update, which is subtraction applied to the guidelines themselves.
+
+The signature pattern, toolbars and tab bars moved to the side, shows the older ideas still at work. It is **coherence** (controls line up with the camera and hinge and stay on the same physical side in every language, because they belong to the hardware), **deference** (the short display's scarce height goes to content), and **familiarity** (the same components in the same order, on another axis). Apple's rule not to override the placement is Jakob's Law stated as policy.
+
+**Consequence for you:** treat any pose change, window resize, or device switch as the same event, a change in available space, and make the person's context survive it: same content, same selection, same controls in the same relative place. Mechanics are in `references/iphone-duo.md`.
+
 ## Reference
 
 - Dieter Rams, "Ten principles for good design" (Vitsœ): https://www.vitsoe.com/us/about/good-design
 - Steve Jobs, "Design is how it works" — Rob Walker, *The New York Times Magazine*, 2003: https://www.nytimes.com/2003/11/30/magazine/the-guts-of-a-new-machine.html
 - Don Norman, *The Design of Everyday Things* (affordances, signifiers, conceptual models, error): https://www.nngroup.com/books/design-everyday-things-revised/
+- HIG, Design principles (the eight principles, June 2026): https://developer.apple.com/design/human-interface-guidelines/design-principles
+- WWDC26 session 250, Principles of great design: https://developer.apple.com/videos/play/wwdc2026/250/
+- HIG, Designing for iPhone Duo: https://developer.apple.com/design/human-interface-guidelines/designing-for-iphone-duo
 - Apple Design hub (Apple's living statement of its design values): https://developer.apple.com/design/
-- HIG home (the three pillars in Apple's own words): https://developer.apple.com/design/human-interface-guidelines
+- HIG home: https://developer.apple.com/design/human-interface-guidelines
 - Adopting Liquid Glass: https://developer.apple.com/documentation/technologyoverviews/adopting-liquid-glass

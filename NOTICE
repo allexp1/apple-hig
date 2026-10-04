@@ -6,20 +6,29 @@ produced, endorsed, sponsored, or approved by Apple Inc.
 
 Trademarks
 ----------
-Apple, the Apple logo, iOS, iPadOS, macOS, watchOS, tvOS, visionOS,
-SF Symbols, San Francisco, Liquid Glass, and other Apple product and feature
-names are trademarks of Apple Inc., registered in the U.S. and other countries.
-These names are used here only for identification and descriptive reference.
-No claim to any Apple trademark is made.
+Apple, the Apple logo, iPhone, iPad, Mac, Apple Watch, Apple TV, Apple Vision
+Pro, iOS, iPadOS, macOS, watchOS, tvOS, visionOS, Siri, SF Symbols,
+San Francisco, Liquid Glass, Dynamic Island, Touch ID, Face ID, Xcode, SwiftUI,
+and other Apple product and feature names (including iPhone Duo) are trademarks
+of Apple Inc., registered in the U.S. and other countries or used by Apple as
+its marks. These names are used here only for identification and descriptive
+reference. No claim to any Apple trademark is made.
 
 Source material
 ---------------
 The guidance in this project is an original synthesis and paraphrase of
-Apple's publicly available Human Interface Guidelines and design resources.
-No Apple text is reproduced verbatim. Apple's published Human Interface
-Guidelines remain the authoritative and evolving source of truth:
+Apple's publicly available Human Interface Guidelines, developer
+documentation, design resources, newsroom announcements, and published
+session videos. No Apple text is reproduced verbatim; names of principles,
+pages, sessions, and API symbols are used as names. Apple's published Human
+Interface Guidelines remain the authoritative and evolving source of truth:
 
     https://developer.apple.com/design/human-interface-guidelines
+
+Factual statements about Apple products (release dates, specifications, API
+names) reflect Apple's published pages on the date given in CHANGELOG.md and
+may since have changed. Values marked "derived" in the text were worked out by
+the authors and are not published by Apple.
 
 Interpretation
 --------------

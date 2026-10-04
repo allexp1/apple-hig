@@ -92,6 +92,14 @@ Don't hardcode colors. Use the system's **semantic** colors, which automatically
 - Never reuse a single color for two different meanings in one app.
 - Don't pick colors by personal taste alone — choose for meaning, contrast, and adaptability.
 
+### Color on Liquid Glass, and brand color
+
+- **Liquid Glass has no color of its own.** It takes color from the content behind it; symbols and text on small glass elements (toolbars, tab bars) are monochrome by default and flip light/dark with what is underneath.
+- **Tint glass sparingly.** Reserve color for what needs emphasis: a primary action or a status indicator. To emphasize a primary action, color the **background** of the control, not its symbol or text.
+- **Colorful content behind? Keep control labels different from it**, or leave them monochrome.
+- **Brand color belongs in the content layer** (September 2026 Branding guidance). Use the accent color with restraint: minimize it on controls, keep it for primary actions and status (an unread badge, the selected tab). Put the brand in the content, where it scrolls beneath the glass and the glass picks it up.
+- Brand lives in voice, a custom headline font (if it stays legible and supports Dynamic Type and Bold Text), and content, not in logos repeated across screens or a branded launch screen.
+
 ### Custom colors
 
 Define custom colors as **Color Sets in the asset catalog** with explicit **Light** and **Dark** (and optionally High-Contrast) variants. Reference them by name. Never hardcode a single hex value that can't adapt. Support **wide-gamut Display P3** where it helps, with an sRGB fallback.
@@ -116,7 +124,7 @@ Define custom colors as **Color Sets in the asset catalog** with explicit **Ligh
 
 ## 3. SF Symbols
 
-A library of **6,900+** Apple-designed iconographic symbols (SF Symbols 7), designed to integrate seamlessly with San Francisco.
+A library of **over 7,000** Apple-designed symbols, designed to integrate seamlessly with San Francisco. The 2026 release (labeled SF Symbols 8 in beta) adds new symbols, which appear in apps running the 27 OS generation, and **Enhanced Search**: describe what you need in plain words and the app finds matching symbols.
 
 ### Why prefer SF Symbols
 
@@ -138,7 +146,7 @@ A library of **6,900+** Apple-designed iconographic symbols (SF Symbols 7), desi
 - **Palette** — 2–3 colors you choose, applied to defined layers.
 - **Multicolor** — the symbol's own intrinsic colors (e.g., a yellow star, red heart). Falls back gracefully.
 
-### SF Symbols 7 features
+### Animation and color features (since SF Symbols 7)
 
 - **Draw animations** — Draw On / Draw Off, with playback by Whole Symbol, By Layer, or Individually.
 - **Variable Draw** — show progress/partial state along a symbol's path.
@@ -151,6 +159,8 @@ A library of **6,900+** Apple-designed iconographic symbols (SF Symbols 7), desi
 - Some symbols representing **Apple products/technologies are non-customizable** (marked with an Info badge) — don't restyle them.
 - **Annotating** assigns a color or hierarchical level to each layer of a custom symbol.
 - For custom needs, create symbols in the **SF Symbols app** using a template so they inherit weights/scales/alignment.
+- **Use the standard symbol for a standard action** (Share, Search, Delete, Back, Close). The HIG lists them under Icons › Standard icons; people already know what they mean.
+- In toolbars, prefer symbols **without** enclosing borders (no circle variants): the glass section is the container.
 - App: https://developer.apple.com/sf-symbols
 
 ---
@@ -168,7 +178,7 @@ Custom in-app glyphs (template images, toolbar/tab glyphs) that aren't covered b
 
 ## 5. App icons
 
-The single most important piece of custom art in an app. As of 2025 / iOS 26 the workflow changed significantly.
+The single most important piece of custom art in an app. The workflow changed in 2025 (iOS 26: layered Liquid Glass icons, Icon Composer) and was refined in 2026 (the 27 generation renders icons sharper and more defined; the App icons page was updated June 2026).
 
 ### The unified template & Icon Composer
 
@@ -176,12 +186,14 @@ The single most important piece of custom art in an app. As of 2025 / iOS 26 the
 - Build the icon in **Icon Composer** (Xcode ▸ Open Developer Tool ▸ Icon Composer, or the free standalone Mac app):
   - Import **layered artwork** — SVG preferred (or PNG) — separated into foreground / mid / background layers. **Convert text to outlines.** Do **not** bake in shadows, highlights, or gradients; the system generates lighting.
   - Apply the **Liquid Glass material** (toggle), and tune fill, opacity, blend, specular highlights, neutral/chromatic shadows, blur, and translucency.
-  - Preview dynamic lighting across platforms and appearance modes.
-  - Export a single **`.icon` file**; Xcode 26 generates every required variant, plus a flattened marketing PNG.
+  - Use **Refraction** (current Icon Composer) to let a layer pick up color and shape from the layers behind it.
+  - Preview dynamic lighting across platforms (iPhone, iPad, Mac, Apple Watch) and appearance modes.
+  - Export a single **`.icon` file**; Xcode generates every required variant, plus a flattened marketing PNG. Existing `.icon` files get the sharper 27-generation material without changes.
+- **Layer craft (HIG):** clearly defined edges on foreground shapes (no soft, feathered edges); vary opacity between foreground layers for depth; prefer vector (SVG/PDF) layers; let the system add highlights, shadows, and blur.
 
 ### Appearance modes (up to 6 variants)
 
-Default, **Dark**, **Clear** (Light/Dark), **Tinted** (Light/Dark), and **Mono**. The system composites these from your layers — design so the glyph reads in all of them.
+Default, **Dark**, **Clear** (Light/Dark), **Tinted** (Light/Dark), and **Mono**. The system composites these from your layers — design so the glyph reads in all of them. **Keep the icon's features the same across appearances**; don't swap elements in and out per variant. Alternate app icons need their own dark, clear, and tinted variants.
 
 ### Specs & still-required assets
 
@@ -207,7 +219,8 @@ System **materials** are translucent background layers that blur and tint what's
 - **Toolbars and bars adopt translucency automatically** over scrolling content — an iOS toolbar is translucent by default and drops its material when content scrolls to the bottom.
 - Use materials to **separate layers and establish depth**, not as decoration.
 - **Respect Reduce Transparency** — materials become more opaque/frosted when the user enables it (handled automatically for system components).
-- In iOS 26+, materials are unified under the **Liquid Glass** system (see `references/liquid-glass.md`).
+- In iOS 26+, materials are unified under the **Liquid Glass** system (see `references/liquid-glass.md`). Two layers, two materials: **Liquid Glass for the functional layer** (controls, navigation) and **standard materials for the content layer**. Don't put Liquid Glass in content.
+- From the 27 generation people set how clear or tinted Liquid Glass is (a Settings slider). Treat transparency as a variable you don't control.
 
 ---
 
@@ -252,9 +265,15 @@ When the user enables **Reduce Motion**, your app must respond — this is **not
 ### Adaptivity
 
 - The layout must **fit the screen** — no horizontal scrolling or pinch-zoom for primary content.
-- Use **Auto Layout / SwiftUI layout / size classes** to adapt across devices, orientations, split views, and Dynamic Type sizes.
-- **Respect safe areas** (notch, Dynamic Island, Home indicator, rounded corners, sidebars).
+- **Let size classes drive layout, never the device model or orientation** (HIG Layout, September 2026). A size class describes the space you actually have; device model and orientation do not. The HIG no longer publishes per-device dimension tables. Don't hard-code screen widths.
+- **Consider every size-class combination**, in both portrait and landscape proportions. An iPhone Duo is compact outside and regular × regular inside; an iPad window can be anything.
+- **Keep functionality the same as the size class changes.** Show more or less of it; never remove features because the space is small.
+- Use **Auto Layout / SwiftUI layout** to adapt across devices, window sizes, split views, and Dynamic Type sizes.
+- **Respect safe areas** (notch, Dynamic Island, Home indicator, rounded corners, sidebars), and don't assume opposite insets are equal: on iPhone Duo the controls sit on one side.
+- **Reserved regions (iOS 27.1)** describe camera cutouts and the folding region so layouts can route around them. Text and controls stay off them; a full-bleed image may cross. See `references/iphone-duo.md` §5.
 - Account for **concentricity** under Liquid Glass: align element corner radii with their container and the device's corners.
+- **Differentiate controls from content** with the glass layer and a scroll-edge effect, not with a solid bar background. Extend content to the edges, under sidebars and bars.
+- **Preview at the extremes first**: the smallest and largest layouts, then localizations and text sizes. Xcode's Device Hub previews across devices and iPhone Duo poses.
 
 ### Composition
 

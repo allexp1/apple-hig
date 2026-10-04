@@ -16,8 +16,9 @@ How people accomplish things in your app over time — the flows, not the indivi
 10. [Accessing user data & privacy](#10-accessing-user-data--privacy)
 11. [Notifications](#11-notifications)
 12. [Other patterns](#12-other-patterns)
-13. [Inputs, gestures & haptics](#13-inputs-gestures--haptics)
-14. [App Store review pitfalls](#14-app-store-review-pitfalls)
+13. [Generative AI, Siri & snippets](#13-generative-ai-siri--snippets)
+14. [Inputs, gestures & haptics](#14-inputs-gestures--haptics)
+15. [App Store review pitfalls](#15-app-store-review-pitfalls)
 
 ---
 
@@ -48,8 +49,8 @@ How people accomplish things in your app over time — the flows, not the indivi
 
 Apps combine three models — match the model to the information structure:
 
-- **Flat** — peer top-level sections reached directly. Tab bar (iPhone) / sidebar (iPad, Mac).
-- **Hierarchical** — drill down one path at a time, back to retrace. Navigation stack + navigation bar.
+- **Flat** — peer top-level sections reached directly. Tab bar (iPhone; first choice on iPad, adaptable to a sidebar) / sidebar (Mac, complex iPad apps).
+- **Hierarchical** — drill down one path at a time, back to retrace. Navigation stack + top toolbar (navigation bar).
 - **Content-driven / experiential** — the content defines the path (games, immersive media, a book).
 
 Rules that hold across models:
@@ -58,6 +59,7 @@ Rules that hold across models:
 - **Use standard back/dismiss affordances** and the system's **edge-swipe back**; don't override or break it.
 - **One path to a place** is simpler than many; avoid deep nesting (flatten with a sidebar where it helps).
 - Don't combine redundant navigators (tab bar + custom bottom bar + FAB).
+- **Navigation follows the space, not the device.** The same structure shows as a bottom tab bar on a bar iPhone, a vertical bar on the side of a closed iPhone Duo, and a tab bar or a sidebar on iPad. Declare the structure with system containers and let the system place it (see `references/iphone-duo.md`).
 
 ## 5. Modality rules
 
@@ -78,10 +80,13 @@ Use modality to focus on a self-contained task or demand a decision — sparingl
 
 ## 7. Searching
 
-- Make search **discoverable** (standard field in the nav bar, a Search tab, or ⌘F on Mac).
+- **If search matters, give it a primary position.** On iPhone that means a search tab or the bottom toolbar; on iPad and Mac, the toolbar or sidebar (⌘F on Mac). Placement rules are in `references/components.md` §Search.
+- **One place to search everything.** People want a single, clearly identified location for finding anything in the app. A local search that filters one view is fine alongside it.
+- **Show the current scope** with placeholder text, a scope bar, or a title, so people know what they are searching.
 - **Results as you type**, with **suggestions, recents, and scopes**; support tokens/filters for power users.
 - Be **forgiving** — handle typos, partials, and synonyms; show a helpful **no-results** state with suggestions, not a dead end.
-- Persist recent searches; let people clear them (privacy).
+- **Search history is private.** Think about who can see the screen before showing it, and always let people clear it.
+- Make content findable outside the app: index it for **Spotlight**, which is also how Siri AI finds it.
 
 ## 8. Settings
 
@@ -119,11 +124,43 @@ Use modality to focus on a self-contained task or demand a decision — sparingl
 - **Ratings & reviews** — use **`SKStoreReviewController`**; prompt **after** a positive moment, not mid-task, and rarely (the system rate-limits). Never block features behind a rating.
 - **Collaboration & sharing** — use the system share sheet and standard collaboration UI; show presence/permissions clearly.
 - **File management** — use the document picker / Files integration; don't hide users' documents in an opaque sandbox when they expect to manage them.
-- **Going full screen / multitasking** — support Split View, Slide Over, and Stage Manager on iPad; keep state across size changes.
+- **Going full screen / multitasking** — support resizable windows, Split View, Slide Over, and Stage Manager on iPad, and **Split View on iPhone Duo** (two apps, or two windows of your app, side by side). Keep state across every size change; the window can change size at any moment.
+- **In-app purchase** — Apple's system is now named **Apple In-App Purchase** (September 2026). Use the current name and the system purchase UI; state price and terms plainly before the commitment.
 - **Charting data** — label axes and series; make data points selectable; provide **audio graphs**/VoiceOver; never distinguish series by color alone.
 - **Playing media / haptics** — respect the silent switch and system volume; don't autoplay sound; for audio output device references in apps, name the output **"External Headphones"** when that's the device.
 
-## 13. Inputs, gestures & haptics
+## 13. Generative AI, Siri & snippets
+
+The 27 generation makes intelligence a normal part of an app. Apple revised the Generative AI and Siri pages in June 2026 and added Snippets. The design job is the same as everywhere else: the person stays in charge.
+
+### Generative features
+
+- **Use AI where it earns its place.** Offer it when it gives clear, specific value (saves time, removes tedium), not because it is available. Keep the app good **without it**: people may opt out, and the model may be unavailable.
+- **The person stays in charge.** Honor the request as asked, don't act beyond it, and **ask before an irreversible or consequential action**.
+- **Be transparent.** Say where AI is used and what it can and can't do. Never let people think they are talking to a human.
+- **Pick the model for privacy.** On-device models keep data on the device, respond fast, and work offline; go to a server only when the feature needs it, and say so. Ask permission before using personal data, and disclose how it is used and stored.
+- **Design for wrong answers.** Models hallucinate. Show sources where you can, mark uncertainty, and keep generated output out of places where a mistake does harm.
+- **Make results easy to refine or revert.** Put **Edit, Undo, Retry, Adjust** next to generated content, and acknowledge when a correction has taken effect.
+- **Say what is happening while it generates.** A message that names the step ("Checking your calendar for free slots") beats a generic "Working…". Design for latency: stream or show progress.
+- **Offer alternates** when several good answers exist, and **a feedback control** (thumbs up/down) on outputs.
+- **Coach, don't just block.** When a request is refused or the result is poor, tell people how to ask better.
+
+### Siri AI and App Intents
+
+- Siri reaches your app through **App Intents**: actions, **entities** (your content), and **app schemas** that map both to domains Siri already understands. Start from your app's most-used actions and where people need them (hands-free, on another device).
+- **Give context.** Annotate what is on screen so "send this" or "summarize it" resolves to the right thing; donate personally relevant content to Spotlight rather than everything.
+- **Use familiar terms** for content and actions: the words people say, not your internal names.
+- **Responses work for ears and eyes.** Siri picks the channel. Keep dialogue clear and as short as possible (people hear it repeatedly), device-independent, and inclusive; **omit your app name** (the system attributes it) and **don't advertise**.
+- Prefer built-in responses; customize only when they don't fit. Make errors specific to the situation.
+
+### Snippets
+
+- A snippet is the compact view shown when Siri, Spotlight, or Shortcuts runs an app intent. **Confirmation** snippets ask before acting (Cancel + a primary button); **result** snippets show the outcome (Done).
+- **Keep it glanceable:** custom view **no taller than 400 pt**, legible in light and dark, readable at large text sizes.
+- **Label the confirmation button with the outcome** ("Order", "Send"), not "OK" or "Continue".
+- **Let the view carry the meaning.** The spoken dialogue is for when nobody is looking; don't lean on its text on screen.
+
+## 14. Inputs, gestures & haptics
 
 ### Gestures
 
@@ -144,6 +181,7 @@ Use modality to focus on a self-contained task or demand a decision — sparingl
 ### Match the input to the platform
 
 - **iOS / iPadOS (touch)** — direct manipulation; design for fingers (44×44pt) and standard gestures.
+- **iPhone Duo (touch, two poses)** — one-handed and compact when closed, two-handed and regular when open; controls sit on the side edge when closed and when open in landscape. Keep interactive elements off the folding region (see `references/iphone-duo.md`).
 - **iPadOS / macOS (pointer + keyboard)** — precision targeting, hover states, right-click context menus, and **full keyboard support** + shortcuts; support trackpad gestures.
 - **Apple Pencil / Scribble (iPad)** — low-latency drawing/handwriting; Scribble converts handwriting to text in any text field; support double-tap/squeeze where relevant.
 - **Digital Crown (watchOS)** — primary precise scroll/adjust input; provide haptic detents; pair with on-screen feedback.
@@ -151,7 +189,7 @@ Use modality to focus on a self-contained task or demand a decision — sparingl
 - **visionOS (eyes + hands)** — **eye tracking targets, indirect pinch selects**; design generous, well-spaced targets and respect ergonomic comfort zones; avoid requiring large arm movement.
 - **Game controllers, keyboards, the Action button, nearby interactions, accelerometer/gyroscope** — support via the standard frameworks; let users remap where possible.
 
-## 14. App Store review pitfalls
+## 15. App Store review pitfalls
 
 Most design-related rejections come from **breaking platform conventions**. Avoid:
 
@@ -162,10 +200,17 @@ Most design-related rejections come from **breaking platform conventions**. Avoi
 - **Permission/sign-in walls** before any value is shown; vague or dishonest permission-usage strings.
 - **Splash screens / heavy intros** that delay launch; launch screens used as advertising.
 - **Distorted images** (wrong aspect ratio), **stacked redundant navigation**, and color-only signifiers.
+- **Layouts tied to one device size** — fixed widths, hard-coded safe-area numbers, or orientation locks that break in resizable windows and on iPhone Duo's inner display (which ignores supported-orientation settings).
+- **AI that hides itself or acts alone** — undisclosed AI, generated content with no way to correct or undo, or irreversible actions taken without confirmation.
 
 ## Reference
 
 - HIG Patterns: https://developer.apple.com/design/human-interface-guidelines/patterns
+- Searching: https://developer.apple.com/design/human-interface-guidelines/searching
+- Generative AI: https://developer.apple.com/design/human-interface-guidelines/generative-ai
+- Siri: https://developer.apple.com/design/human-interface-guidelines/siri
+- Snippets: https://developer.apple.com/design/human-interface-guidelines/snippets
+- App Shortcuts: https://developer.apple.com/design/human-interface-guidelines/app-shortcuts
 - Inputs: https://developer.apple.com/design/human-interface-guidelines/inputs
 - Design tips: https://developer.apple.com/design/tips
 - App Review Guidelines: https://developer.apple.com/app-store/review/guidelines/

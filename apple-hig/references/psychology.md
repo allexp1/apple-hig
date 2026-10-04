@@ -44,6 +44,7 @@ Each entry follows one chain: **principle → what it means → the rule it expl
 **Explains:** the 44×44pt minimum hit target (and that the *tappable* area may exceed the *visible* one); placing primary actions within thumb reach; why screen **edges and corners** act as fast, "infinitely large" targets (you can't overshoot them).
 **Apply:** make frequent and important targets **bigger and closer**; push rare/destructive ones farther and smaller. On **physical/kiosk** interfaces the target is literal — button size and reach are ergonomics. On **voice**, "distance" becomes the number of steps or utterances to reach an action: shorten the path to the common goal. On **pointer** desktops, screen edges/corners (menu bar, corners) are prime real estate for the same reason.
 **You got it right when:** the action people take most is the easiest to hit, and destructive actions are deliberately harder.
+**New instance (2026):** iPhone Duo's outer display is wider and shorter than other iPhones, so the system moves toolbars and the tab bar from the top and bottom to a **vertical bar on the side edge**, inside the thumb's arc, and keeps them there when the device opens in landscape. Shorter distance, same targets, and an edge is an easy target. See `references/iphone-duo.md` §4.
 
 ### Doherty Threshold — engagement and productivity hold when system response stays under ~400ms
 **Explains:** the emphasis on responsiveness; optimistic UI; skeleton/placeholder states; showing determinate progress for long operations; ~100–500ms motion durations.
@@ -141,6 +142,7 @@ Each entry follows one chain: **principle → what it means → the rule it expl
 **Explains:** not moving controls between releases; preserving gestures and placements; the long-term half of Jakob's Law.
 **Apply:** once users have learned where something is, moving it imposes a real relearning tax. Change layout and core interactions only for a clearly worth-it gain, and ease the transition when you do.
 **You got it right when:** returning users operate the product without re-learning it.
+**New instances (2026):** iPhone Duo's vertical bars keep the standard order and groupings of their horizontal versions and stay on the same physical side even in right-to-left languages, so the hand learns one place. The HIG's rules against overflow tabs and against hiding or disabling tabs protect the same thing: navigation that stays where it was.
 
 ## Reference
 
