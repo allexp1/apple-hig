@@ -2,10 +2,10 @@
 
 **An [Agent Skill](https://www.anthropic.com/news/skills) that teaches Claude not just Apple's design *rules*, but the design *philosophy* and *cognitive psychology* beneath them — so it can reason about good design from first principles and apply it to any human/machine interface, not only iOS.**
 
-**Version 2.0.0** · current to **iOS 27** (released September 14, 2026), the HIG's June and September 2026 updates, and **iPhone Duo** (iOS 27.1) · [Changelog](CHANGELOG.md)
+**Version 2.0.0** · current to **iOS 27** (released September 14, 2026), the HIG's June and September 2026 updates, and **iPhone Duo** (iOS 27.1) · [Changelog](CHANGELOG.md) · [npm](https://www.npmjs.com/package/apple-hig)
 
 ```bash
-npx github:allexp1/apple-hig
+npx apple-hig
 ```
 
 ---
@@ -73,12 +73,14 @@ In current Claude Code, a skill's folder name **is** its slash command — insta
 **One command** (needs Node 16.7 or later; nothing to clone):
 
 ```bash
-npx github:allexp1/apple-hig              # global: ~/.claude/skills/apple-hig
-npx github:allexp1/apple-hig --project    # this project only: ./.claude/skills/apple-hig
-npx github:allexp1/apple-hig --dry-run    # show what would be written, change nothing
+npx apple-hig              # global: ~/.claude/skills/apple-hig
+npx apple-hig --project    # this project only: ./.claude/skills/apple-hig
+npx apple-hig --dry-run    # show what would be written, change nothing
 ```
 
 The installer only copies files. If the skill is already installed, the old copy is moved to `~/.claude/skill-backups/apple-hig-<timestamp>/` first, so updating is the same command and nothing is lost.
+
+That installs the latest release from [npm](https://www.npmjs.com/package/apple-hig). To install the current `main` branch instead, use `npx github:allexp1/apple-hig` with the same options.
 
 **With the [skills CLI](https://github.com/vercel-labs/skills)** (also installs for other agents that read `SKILL.md`):
 

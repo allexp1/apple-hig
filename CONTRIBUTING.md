@@ -75,6 +75,23 @@ For any change in what the skill tells people to do:
    was wrong.
 3. Run `bash scripts/build.sh`.
 
+## Releasing (maintainers)
+
+After the version bump is merged to `main`:
+
+```bash
+git tag -a vX.Y.Z -m "apple-hig X.Y.Z" && git push origin vX.Y.Z
+gh release create vX.Y.Z dist/apple-hig.skill --title "apple-hig X.Y.Z" --notes "..."
+npm login                  # once per machine
+bash scripts/publish.sh    # publishes to npm, so `npx apple-hig` gets the new version
+```
+
+`scripts/publish.sh` refuses to run with uncommitted changes or a stale build.
+If the npm account has two-factor auth, the publish needs an approval: in a
+terminal window npm asks for it; anywhere else the script opens npm's approval
+page in your browser and waits (or pass `--otp=<code>` with the current code
+from your authenticator app).
+
 ## The `.living/` sidecar
 
 `apple-hig/.living/` holds the facts that go stale fastest (see the README).

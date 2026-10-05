@@ -38,10 +38,10 @@ Brings the skill up to iOS 27 and adds iPhone Duo. Apple facts were checked agai
 - SF Symbols count updated from 6,900+ to over 7,000.
 
 ### Repository
-- **npx installer.** `npx github:allexp1/apple-hig` installs the skill (`--project`, `--dry-run`, `--dest DIR`); `package.json` and `bin/install.js` at the repository root.
+- **npx installer.** `npx apple-hig` installs the skill (`--project`, `--dry-run`, `--dest DIR`); `package.json` and `bin/install.js` at the repository root. Published on npm as [`apple-hig`](https://www.npmjs.com/package/apple-hig); `npx github:allexp1/apple-hig` installs the current `main` branch.
 - `install.sh` now moves an existing install to `~/.claude/skill-backups/` instead of deleting it, keeps installed knowledge that is newer than the repository's, and re-baselines the sidecar hash.
 - The `.living/` sidecar ships inside `apple-hig/`: dated facts, trusted sources, a change log, and an integrity hash for `SKILL.md`.
-- `scripts/build.sh` checks the frontmatter and versions, re-baselines the hash, and rebuilds `dist/apple-hig.skill`.
+- `scripts/build.sh` checks the frontmatter and versions, re-baselines the hash, and rebuilds `dist/apple-hig.skill`. `scripts/publish.sh` publishes to npm.
 - `README.md`, `CONTRIBUTING.md`, and `NOTICE` updated for all of the above.
 
 ## 1.0.0 — 2026-05-26
