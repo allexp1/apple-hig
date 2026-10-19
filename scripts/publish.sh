@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Publishes this package to npm, so that `npx apple-hig` works.
 #
-#   npm login                 # once
-#   bash scripts/publish.sh   # extra arguments go to `npm publish`
+#   bash scripts/publish.sh   # logs in to npm first if needed
+#   # extra arguments go to `npm publish`
 #
 # With two-factor auth on the npm account, the publish needs your approval:
 #   - in a terminal window, npm asks for it itself;
@@ -18,8 +18,9 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 if ! npm whoami >/dev/null 2>&1; then
-  echo "Not logged in to npm. Run 'npm login', then run this script again." >&2
-  exit 1
+  echo "Not logged in to npm. Logging in now (approve it in the browser)..."
+  npm login
+  npm whoami >/dev/null 2>&1 || { echo "npm login did not finish. Run this script again." >&2; exit 1; }
 fi
 
 if [[ -n "$(git status --porcelain)" ]]; then
